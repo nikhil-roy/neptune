@@ -23,11 +23,23 @@ const User = sequelize.define('user', {
     password: 'test'
   });
 });*/
+function createUser(data) {
+  User.create({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      password: data.password
+    })
+    .then(() => {
+      status: "success"
+    })
+
+}
 
 function getUsers(callback) {
   return User.findAll().then(users => {
-     callback(users);
+    callback(users);
   })
 }
 
 exports.getUsers = getUsers
+exports.createUser = createUser
