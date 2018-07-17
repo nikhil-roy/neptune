@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const config = require('./config')
-var sequelize = config.sequelize;
+const sequelize = config.sequelize;
+
 
 const User = sequelize.define('user', {
   firstName: {
@@ -59,6 +60,20 @@ function getUsers(callback) {
   })
 }
 
+function getUser(body,callback) {
+  return User.findAll({
+    where: {
+      userName:body.userName,
+      password:body.password
+    }
+  }).then(user => {
+    if(user.length == 0)
+      callback({status:"failure"});
+    else
+      callback(user[0]);
+  })
+}
+
 function updateData(body,callback) {
   User.update({
    data:body.data},
@@ -72,3 +87,4 @@ exports.getUsers = getUsers
 exports.createUser = createUser
 exports.dropUsers = dropUsers
 exports.updateData = updateData
+exports.getUser = getUser
