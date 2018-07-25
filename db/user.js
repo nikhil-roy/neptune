@@ -63,14 +63,17 @@ function getUsers(callback) {
 function getUser(body,callback) {
   return User.findAll({
     where: {
-      userName:body.userName,
-      password:body.password
+      userName:body.userName.trim(),
+      password:body.password.trim()
     }
   }).then(user => {
     if(user.length == 0)
       callback({status:"failure"});
-    else
-      callback(user[0]);
+    else {
+    var data = user[0];
+    data.status = "success"
+      callback(data);
+    }
   })
 }
 
