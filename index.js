@@ -21,6 +21,12 @@ app.post('/login',function(req, res) {
   }
   loginUser(req.body,callback);
 });
+app.post('/updateData',function(req,res){
+  function callback(response) {
+    res.send(response)
+  }
+  user.updateData(req.body,callback)
+});
 
 app.listen(3000, () => console.log('App listening on port 3000!'))
 config.connectToDb();

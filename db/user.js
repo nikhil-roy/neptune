@@ -76,13 +76,24 @@ function getUser(body,callback) {
     }
   })
 }
+var success = {
+  status:"success"
+}
+var failure = {
+  status:"failure"
+}
 
 function updateData(body,callback) {
   User.update({
    data:body.data},
-   {where : {userName:body.userName}
+   {where : {userName:body.userName.trim(),password:body.password.trim()}
   })
-  .then(res=>callback(res))
+  .then(res=>{
+    console.log(res);
+    if(res[0]==1)
+   return callback(success)
+   else return callback(failure)
+  })
   .error(err=>callback(err))
 }
 
