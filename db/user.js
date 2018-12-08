@@ -57,6 +57,11 @@ function dropUsers(callback){
 function getUsers(callback) {
   return User.findAll().then(users => {
     callback(users);
+  }).catch(error => {
+    callback({
+      status : "failure",
+      message : "no table found"
+    });
   })
 }
 
@@ -97,6 +102,15 @@ function updateData(body,callback) {
   .error(err=>callback(err))
 }
 
+function createTable() {
+  User.sync({force:false}).then(() => {
+    console.log("Table Created");
+  }).catch(error => {
+    console.warn("Unable to create table");
+  })
+}
+
+exports.createTable = createTable
 exports.getUsers = getUsers
 exports.createUser = createUser
 exports.dropUsers = dropUsers

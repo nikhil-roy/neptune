@@ -41,3 +41,5 @@ function createReq(body) {
 function loginUser(body,callback) {
   user.getUser(body,callback)
 }
+
+// user.createTable();
