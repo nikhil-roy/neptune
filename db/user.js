@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const config = require('./config')
+var SHA256 = require("crypto-js/sha256");
 const sequelize = config.sequelize;
 
 
